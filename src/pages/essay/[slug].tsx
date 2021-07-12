@@ -1,7 +1,6 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
 import { getMDXComponent } from 'mdx-bundler/client'
-
 import { getAllEssays, getEssayBySlug } from '@/utils/index'
 
 import type { Post } from '@/types/index'

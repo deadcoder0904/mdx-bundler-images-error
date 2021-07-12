@@ -46,8 +46,7 @@ export const getAllTutorials = () => getAllPosts(TUTORIAL_FILE_PATHS)
 export const getPostBySlug = async (postType: 'essay' | 'tutorial', slug: string) => {
 	const source = fs.readFileSync(path.join(`${POSTS_PATH}/${postType}/${slug}/index.mdx`), 'utf8')
 
-	const cwd = path.join(POSTS_PATH, postType)
-	const imagesUrl = `${postType}/${slug}`
+	const cwd = path.join(POSTS_PATH, postType, slug)
 
 	const { code, frontmatter } = await bundleMDX(source, {
 		cwd,
@@ -62,7 +61,7 @@ export const getPostBySlug = async (postType: 'essay' | 'tutorial', slug: string
 			return options
 		},
 		esbuildOptions: (options) => {
-			options.outdir = path.join(PUBLIC_PATH, imagesUrl)
+			options.outdir = path.join(PUBLIC_PATH, slug)
 			options.loader = {
 				...options.loader,
 				'.webp': 'file',
@@ -71,7 +70,7 @@ export const getPostBySlug = async (postType: 'essay' | 'tutorial', slug: string
 				'.png': 'file',
 				'.gif': 'file',
 			}
-			options.publicPath = imagesUrl
+			options.publicPath = slug
 
 			options.write = true
 
