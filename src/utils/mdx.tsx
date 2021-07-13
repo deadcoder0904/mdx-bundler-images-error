@@ -61,7 +61,7 @@ export const getPostBySlug = async (postType: 'essay' | 'tutorial', slug: string
 			return options
 		},
 		esbuildOptions: (options) => {
-			options.outdir = path.join(PUBLIC_PATH, slug)
+			options.outdir = path.join(PUBLIC_PATH, postType, slug)
 			options.loader = {
 				...options.loader,
 				'.webp': 'file',
