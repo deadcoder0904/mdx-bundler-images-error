@@ -5,7 +5,6 @@ import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 import gfmPlugin from 'remark-gfm'
 import slugPlugin from 'remark-slug'
-import { remarkMdxImages } from 'remark-mdx-images'
 
 import { dateSortDesc } from '@/utils/index'
 
@@ -51,12 +50,7 @@ export const getPostBySlug = async (postType: 'essay' | 'tutorial', slug: string
 	const { code, frontmatter } = await bundleMDX(source, {
 		cwd,
 		xdmOptions: (options) => {
-			options.remarkPlugins = [
-				...(options?.remarkPlugins ?? []),
-				slugPlugin,
-				gfmPlugin,
-				remarkMdxImages,
-			]
+			options.remarkPlugins = [...(options?.remarkPlugins ?? []), slugPlugin, gfmPlugin]
 
 			return options
 		},
